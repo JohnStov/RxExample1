@@ -1,0 +1,16 @@
+﻿<Window x:Class="TwitterSearch.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:twitterSearch="clr-namespace:TwitterSearch"
+        Title="MainWindow" Height="350" Width="525">
+    <Window.DataContext>
+            <twitterSearch:MainWindowViewModel/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="{Binding SearchFor}"/>
+    </Grid>
+</Window>

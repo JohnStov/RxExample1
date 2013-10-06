@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reactive.Linq;
-using System.Runtime.InteropServices;
+
 using ReactiveUI;
 
 namespace TwitterSearch
@@ -13,7 +13,7 @@ namespace TwitterSearch
                 x =>
                 {
                     if (x.PropertyName == "SearchText")
-                        SearchFor = Reverse(SearchText);
+                        SearchFor = SearchText;
                 });
         }
 
@@ -31,13 +31,5 @@ namespace TwitterSearch
             get { return searchFor; }
             set { this.RaiseAndSetIfChanged(ref searchFor, value); }
         }
-
-        private string Reverse(string str)
-        {
-            var chars = str.ToCharArray();
-            Array.Reverse(chars);
-            return new string(chars);
-        }
-
     }
 }
