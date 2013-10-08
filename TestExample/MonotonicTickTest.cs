@@ -9,7 +9,7 @@ namespace TestExample
     public class MonotonicTickTest
     {
         [Fact]
-        public void SequenceValueIs8After9Seconds()
+        public void SequenceValueIs8After8Seconds()
         {
             var seq = new MonotonicTick();
             
@@ -17,13 +17,13 @@ namespace TestExample
 
             seq.Ticker.Subscribe(x => value = x);
 
-            Thread.Sleep(9100);
+            Thread.Sleep(8500);
 
             Assert.Equal(8, value);
         }
 
         [Fact]
-        public void SequenceValueIs8After9SecondsFaked()
+        public void SequenceValueIs8After8SimulatedSeconds()
         {
             var scheduler = new TestScheduler();
             var seq = new MonotonicTick(scheduler);
@@ -32,7 +32,7 @@ namespace TestExample
 
             seq.Ticker.Subscribe(x => value = x);
 
-            scheduler.Schedule()
+            scheduler.AdvanceTo(8500 * TimeSpan.TicksPerMillisecond);
 
             Assert.Equal(8, value);
         }

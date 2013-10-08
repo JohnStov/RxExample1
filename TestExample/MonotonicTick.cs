@@ -12,7 +12,7 @@ namespace TestExample
             if (scheduler == null)
                 scheduler = DefaultScheduler.Instance;
             
-            Ticker = Observable.Range().Interval(TimeSpan.FromSeconds(1), scheduler).Zip(Enumerable.Range(1, 10), (tick, index) => index);
+            Ticker = Observable.Interval(TimeSpan.FromSeconds(1), scheduler).Zip(Enumerable.Range(1, 10), (tick, index) => index);
         }
 
 

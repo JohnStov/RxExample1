@@ -9,7 +9,7 @@ namespace TwitterSearch
     {
         public MainWindowViewModel()
         {
-            Changed.Throttle(new TimeSpan(0, 0, 1)).Subscribe(
+            Changed.Throttle(TimeSpan.FromSeconds(1)).Subscribe(
                 x =>
                 {
                     if (x.PropertyName == "SearchText")
