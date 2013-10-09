@@ -15,6 +15,8 @@ namespace TestExample
             Ticker = Observable
                         .Interval(TimeSpan.FromSeconds(1), scheduler)
                         .Zip(Enumerable.Range(1, 10), (tick, index) => index);
+
+
         }
 
 
