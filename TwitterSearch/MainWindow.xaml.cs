@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace TwitterSearch
+namespace SearchExample
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

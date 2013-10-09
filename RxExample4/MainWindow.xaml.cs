@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reactive;
 using System.Reactive.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -34,26 +35,21 @@ namespace RxExample4
             var leftClicks = mouseDown.Where(x => x.EventArgs.LeftButton == MouseButtonState.Pressed);
 
             leftClicks.Subscribe(
-                clickEvent =>
-                    {
-                        var circle = new Ellipse {Width = 10, Height = 10};
-                        var brush = new SolidColorBrush(Colors.Red);
-                        circle.Fill = brush;
-                        Canvas.SetLeft(circle, clickEvent.EventArgs.GetPosition(canvas).X);
-                        Canvas.SetTop(circle, clickEvent.EventArgs.GetPosition(canvas).Y);
-                        canvas.Children.Add(circle);
-                    });
+                clickEvent => DrawCircle(Colors.Red, 10, clickEvent.EventArgs.GetPosition(canvas)));
 
             drags.Subscribe(
-                moveEvent =>
-                {
-                    var circle = new Ellipse { Width = 3, Height = 3 };
-                    var brush = new SolidColorBrush(Colors.Green);
-                    circle.Fill = brush;
-                    Canvas.SetLeft(circle, moveEvent.EventArgs.GetPosition(canvas).X);
-                    Canvas.SetTop(circle, moveEvent.EventArgs.GetPosition(canvas).Y);
-                    canvas.Children.Add(circle);
-                });
+                moveEvent => DrawCircle(Colors.Green, 3, moveEvent.EventArgs.GetPosition(canvas)));
+        }
+
+        private void DrawCircle(Color colour, int diameter, Point position)
+        {
+            EventPattern<MouseButtonEventArgs> clickEvent;
+            var circle = new Ellipse { Width = diameter, Height = diameter };
+            var brush = new SolidColorBrush(colour);
+            circle.Fill = brush;
+            Canvas.SetLeft(circle, position.X);
+            Canvas.SetTop(circle, position.Y);
+            canvas.Children.Add(circle);
         }
     }
 }

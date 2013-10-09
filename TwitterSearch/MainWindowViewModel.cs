@@ -1,15 +1,17 @@
 ﻿using System;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
-using System.Runtime.InteropServices;
+using System.Threading;
+
 using ReactiveUI;
 
-namespace TwitterSearch
+namespace SearchExample
 {
     public class MainWindowViewModel : ReactiveObject
     {
         public MainWindowViewModel()
         {
-            Changed.Throttle(TimeSpan.FromSeconds(1)).Subscribe(
+            Changed.Throttle(TimeSpan.FromSeconds(1)).ObserveOn(ThreadPoolScheduler.Instance).Subscribe(
                 x =>
                 {
                     if (x.PropertyName == "SearchText")
@@ -36,6 +38,7 @@ namespace TwitterSearch
         {
             var chars = str.ToCharArray();
             Array.Reverse(chars);
+            Thread.Sleep(TimeSpan.FromMilliseconds(500));
             return new string(chars);
         }
 
